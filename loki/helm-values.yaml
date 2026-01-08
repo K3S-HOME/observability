@@ -20,9 +20,9 @@ loki:
       ruler: loki
       admin: loki
 
-  # Single binary mode for simplicity
+  # Single binary mode with 2 replicas
   commonConfig:
-    replication_factor: 1
+    replication_factor: 2
 
   # Schema config
   schemaConfig:
@@ -49,17 +49,26 @@ loki:
 deploymentMode: SingleBinary
 
 singleBinary:
-  replicas: 1
+  replicas: 2
   persistence:
     enabled: false
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: loki
+          topologyKey: kubernetes.io/hostname
   extraEnvFrom:
     - secretRef:
         name: minio-s3-credentials
   extraVolumes:
-    - name: tmp
+    - name: loki-data
       emptyDir: {}
   extraVolumeMounts:
-    - name: tmp
+    - name: loki-data
       mountPath: /var/loki
   resources:
     requests:
