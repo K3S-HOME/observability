@@ -12,10 +12,16 @@ spec:
     rules:
     - alert: KubeContainerOOMKilled
       annotations:
-        description: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} was OOMKilled."
-        summary: "Container was OOMKilled"
+        description: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} was OOMKilled in the last 10 minutes."
+        summary: "Container was recently OOMKilled"
       expr: |
-        kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+        (
+          increase(kube_pod_container_status_restarts_total[10m]) > 0
+        )
+        and on (namespace, pod, container)
+        (
+          kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+        )
       for: 0m
       labels:
         severity: warning
