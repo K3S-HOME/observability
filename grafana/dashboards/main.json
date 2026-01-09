@@ -114,7 +114,7 @@
         "y": 1
       },
       "id": 77,
-      "interval": "2m",
+      "interval": "$resolution",
       "options": {
         "displayMode": "lcd",
         "legend": {
@@ -791,7 +791,7 @@
         "y": 9
       },
       "id": 37,
-      "interval": "2m",
+      "interval": "$resolution",
       "options": {
         "colorMode": "none",
         "graphMode": "none",
