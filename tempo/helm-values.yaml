@@ -63,32 +63,34 @@ tempo:
     enabled: true
     remoteWriteUrl: http://prometheus-kube-prometheus-prometheus.prometheus.svc:9090/api/v1/write
 
+  # MinIO S3 credentials
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: minio-s3-credentials
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: minio-s3-credentials
+          key: AWS_SECRET_ACCESS_KEY
+
+  # Additional volume mounts for WAL
+  extraVolumeMounts:
+    - name: tempo-data
+      mountPath: /var/tempo
+
 # =============================================================================
 # Persistence - Disabled (use emptyDir for WAL, data in MinIO)
 # =============================================================================
 persistence:
   enabled: false
 
-# emptyDir for WAL
+# emptyDir volume for WAL
 extraVolumes:
   - name: tempo-data
     emptyDir: {}
-extraVolumeMounts:
-  - name: tempo-data
-    mountPath: /var/tempo
-
-# MinIO S3 credentials
-extraEnv:
-  - name: AWS_ACCESS_KEY_ID
-    valueFrom:
-      secretKeyRef:
-        name: minio-s3-credentials
-        key: AWS_ACCESS_KEY_ID
-  - name: AWS_SECRET_ACCESS_KEY
-    valueFrom:
-      secretKeyRef:
-        name: minio-s3-credentials
-        key: AWS_SECRET_ACCESS_KEY
 
 # =============================================================================
 # Service
