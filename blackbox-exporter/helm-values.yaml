@@ -36,6 +36,18 @@ config:
         preferred_ip_protocol: ip4
         tls_config:
           insecure_skip_verify: true
+    # For services behind Authelia (returns 401 when not authenticated)
+    http_auth:
+      prober: http
+      timeout: 10s
+      http:
+        valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+        valid_status_codes: [200, 301, 302, 303, 401, 403]
+        method: GET
+        follow_redirects: false
+        preferred_ip_protocol: ip4
+        tls_config:
+          insecure_skip_verify: false
     tcp_connect:
       prober: tcp
       timeout: 5s
@@ -61,7 +73,7 @@ serviceMonitor:
       module: http_2xx
     - name: grafana
       url: https://grafana0213.kro.kr
-      module: http_2xx
+      module: http_auth
     - name: vault
       url: https://vault0213.kro.kr
       module: http_2xx
@@ -79,7 +91,7 @@ serviceMonitor:
       module: http_2xx
     - name: velero-ui
       url: https://velero0213.kro.kr
-      module: http_2xx
+      module: http_auth
     - name: headlamp
       url: https://kubernetes0213.kro.kr
       module: http_2xx
@@ -88,10 +100,10 @@ serviceMonitor:
       module: http_2xx
     - name: code-server
       url: https://vscode0213.kro.kr
-      module: http_2xx
+      module: http_auth
     - name: pgweb
       url: https://pgweb0213.kro.kr
-      module: http_2xx
+      module: http_auth
     - name: zot
       url: https://zot0213.kro.kr
       module: http_2xx
