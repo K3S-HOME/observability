@@ -165,6 +165,11 @@ spec:
         config:
           global:
             scrape_interval: 60s
+          scrape_configs:
+            - job_name: otel-collector
+              scrape_interval: 60s
+              static_configs:
+                - targets: ['${env:K8S_POD_IP}:8888']
         target_allocator:
           endpoint: http://otel-collector-targetallocator:80
           interval: 30s
