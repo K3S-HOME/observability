@@ -63,6 +63,10 @@ tempo:
     enabled: true
     remoteWriteUrl: http://prometheus-kube-prometheus-prometheus.prometheus.svc:9090/api/v1/write
 
+  # Enable environment variable expansion in config
+  extraArgs:
+    config.expand-env: "true"
+
   # Environment variables from secret for S3 credentials
   extraEnv:
     - name: S3_ACCESS_KEY
