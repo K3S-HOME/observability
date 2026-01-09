@@ -18,12 +18,12 @@ spec:
   serviceAccount: otel-collector
 
   # Target Allocator - distributes Prometheus scrape targets across collectors
-  # Using consistent-hashing strategy (not per-node due to collector-node mapping bug)
+  # per-node strategy: each collector scrapes targets on its own node
   targetAllocator:
     enabled: true
     serviceAccount: otel-collector-targetallocator
     image: ghcr.io/open-telemetry/opentelemetry-operator/target-allocator:0.113.0
-    allocationStrategy: consistent-hashing
+    allocationStrategy: per-node
     filterStrategy: relabel-config
     prometheusCR:
       enabled: true
