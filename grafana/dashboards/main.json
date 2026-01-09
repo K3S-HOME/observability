@@ -114,7 +114,7 @@
         "y": 1
       },
       "id": 77,
-      "interval": "$resolution",
+      "interval": "2m",
       "options": {
         "displayMode": "lcd",
         "legend": {
@@ -791,7 +791,7 @@
         "y": 9
       },
       "id": 37,
-      "interval": "$resolution",
+      "interval": "2m",
       "options": {
         "colorMode": "none",
         "graphMode": "none",
@@ -1248,7 +1248,7 @@
           "editorMode": "code",
           "exemplar": true,
           "expr": "avg(sum by (instance, cpu) (rate(node_cpu_seconds_total{mode!~\"idle|iowait|steal\", cluster=\"$cluster\", job=\"$job\"}[$__rate_interval])))",
-          "interval": "$resolution",
+          "interval": "2m",
           "legendFormat": "Linux",
           "range": true,
           "refId": "Linux"
@@ -1262,7 +1262,7 @@
           "exemplar": true,
           "expr": "1 - avg(rate(windows_cpu_time_total{cluster=\"$cluster\",mode=\"idle\"}[$__rate_interval]))",
           "hide": false,
-          "interval": "$resolution",
+          "interval": "2m",
           "legendFormat": "Windows",
           "range": true,
           "refId": "Windows"
