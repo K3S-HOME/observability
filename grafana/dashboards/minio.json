@@ -3590,14 +3590,14 @@
           "type": "prometheus",
           "uid": "PBFA97CFB590B2093"
         },
-        "definition": "label_values(job)",
+        "definition": "label_values(minio_cluster_nodes_online_total, job)",
         "hide": 0,
-        "includeAll": true,
-        "multi": true,
+        "includeAll": false,
+        "multi": false,
         "name": "scrape_jobs",
         "options": [],
         "query": {
-          "query": "label_values(job)",
+          "query": "label_values(minio_cluster_nodes_online_total, job)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
