@@ -2242,8 +2242,9 @@
               }
             ]
           },
-          "unit": "s",
-          "unitScale": true
+          "unit": "percentunit",
+          "unitScale": true,
+          "max": 1
         },
         "overrides": []
       },
@@ -2278,7 +2279,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rate(minio_node_process_cpu_total_seconds{job=~\"$scrape_jobs\"}[$__rate_interval])",
+          "expr": "rate(minio_node_process_cpu_total_seconds{job=\"minio\"}[5m])",
           "interval": "",
           "legendFormat": "{{server}}",
           "range": true,
