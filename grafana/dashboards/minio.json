@@ -2933,7 +2933,7 @@
       "gridPos": {
         "h": 7,
         "w": 12,
-        "x": 12,
+        "x": 0,
         "y": 54
       },
       "hiddenSeries": false,
@@ -3027,10 +3027,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 54
       },
       "hiddenSeries": false,
       "id": 97,
